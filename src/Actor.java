@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Actor extends Node{
+public class Actor implements Node{
     public String name;
     public ArrayList<Movie> movies;
 
