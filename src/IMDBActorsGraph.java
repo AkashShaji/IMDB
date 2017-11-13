@@ -5,11 +5,10 @@ import java.util.LinkedList;
 
 public class IMDBActorsGraph implements Graph {
 
-    private IMBDParser _parser;
     private HashMap<String, Actor> _actors;
 
     public IMDBActorsGraph (String actorsFilename, String actressesFilename) throws IOException {
-        _parser = new IMBDParser(actorsFilename, actressesFilename);
+        final IMBDParser _parser = new IMBDParser(actorsFilename, actressesFilename);
         _actors = _parser.getActors();
     }
 
@@ -22,9 +21,8 @@ public class IMDBActorsGraph implements Graph {
         return actorsList;
     }
 
-    // TODO: This one
     @Override
     public Node getNodeByName(String name) {
-        return null;
+        return _actors.get(name);
     }
 }
