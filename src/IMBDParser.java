@@ -8,7 +8,7 @@ public class IMBDParser {
     public void parse(){
         Scanner sc = null;
         try {
-            sc = new Scanner( new File("actors_test.list"));
+            sc = new Scanner( new File("/Users/agupta/Documents/WPI/freshmen/cs210x/IMDB/IMDB/actors_test.list"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
