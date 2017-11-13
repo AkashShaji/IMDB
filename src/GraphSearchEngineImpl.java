@@ -8,19 +8,20 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         LinkedList<Node> queue = convertCollectionToLinkedList(s.getNeighbors());
 
         ArrayList<Node> searchedNodes = new ArrayList<Node>();
+
         while(queue.size() != 0)
         {
             Node nodeToSearch = queue.pop();
             ArrayList<Node> subNodes = convertCollectionToArrayList(nodeToSearch.getNeighbors());
             for(Node n: subNodes){
-                // TODO : Akash, change this to .equals()
-                if(n.getName() == t.getName()) {
+                if(n.getName().equals(t.getName())) {
                     return reconstructPath(s,t,queue,searchedNodes);
                 }
                 if(!(searchedNodes.contains(n))) {
                     queue.add(n);
                 }
             }
+            searchedNodes.add(nodeToSearch);
         }
 
         return null;

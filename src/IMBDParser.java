@@ -40,9 +40,9 @@ public class IMBDParser {
             }
 
             String line = sc.nextLine();
-            if (line.length() < 1) {
+            if (line.length() < 1  || line.equals("Name\t\t\tTitles ") || line.equals("----\t\t\t------")) {
                 continue;
-            }else if(line.equals("-----------------------------------------------------------------------------") || line.equals("Name\t\t\tTitles ") || line.equals("----\t\t\t------")){
+            }else if(line.equals("-----------------------------------------------------------------------------")){
                 break;
             }
 
