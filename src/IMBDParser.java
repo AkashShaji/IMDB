@@ -31,7 +31,7 @@ public class IMBDParser {
         int lineNumber = 0;
 
         while (sc.hasNext()) {
-            if (lineNumber < 238) {
+            if (lineNumber < 239) {
                 sc.nextLine();
                 lineNumber++;
                 continue;
@@ -58,21 +58,24 @@ public class IMBDParser {
                     tempMovie = _movieMap.get(movieName);
                 } else {
                     tempMovie = new Movie(movieName, new ArrayList<Actor>());
+                    _movieMap.put(movieName, tempMovie);
                 }
                 tempMovieList.add(tempMovie);
-            }
 
-            Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
-            _ActoreMap.put(actorName, tempActor);
-            _movieMap.get(movieName).addActor(tempActor);
+                Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
+                _ActoreMap.put(actorName, tempActor);
+
+                _movieMap.get(movieName).addActor(tempActor);
+            }
         }
     }
 
     private String getMovieName (String line){
-        if(line.contains("\"") || line.contains("(TV)")){
+        System.out.println(line);
+        String movie = line.substring(line.lastIndexOf('\t'), line.indexOf(')'));
+        if(movie.contains("\"") || movie.contains("(TV)")){
             return "";
         }
-        System.out.println(line);
-        return line.substring(line.lastIndexOf('\t'), line.indexOf(')'));
+        return movie;
     }
 }
