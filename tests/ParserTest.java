@@ -14,7 +14,10 @@ public class ParserTest {
 
         IMBDParser i = new IMBDParser("actors_mini.list", "actresses_mini.list");
         HashMap<String, Actor> actors = i.getActors();
-
+        for(String k : actors.keySet()){
+            for(Movie m : actors.get(k).movies)
+            System.out.println(actors.get(k).name + ": " + m.name);
+        }
         assertTrue(true);
     }
 }

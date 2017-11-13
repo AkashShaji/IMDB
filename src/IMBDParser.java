@@ -89,7 +89,7 @@ public class IMBDParser {
         if(closePar < tabIndex){
             closePar = line.indexOf(')', line.indexOf(')') + 1);
         }
-        movie = line.substring(tabIndex , closePar);
+        movie = line.substring(tabIndex , closePar + 1);
         if(movie.contains("\"") || movie.contains("(TV)")){
             return "";
         }
