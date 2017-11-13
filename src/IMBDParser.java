@@ -8,18 +8,19 @@ public class IMBDParser {
     public void parse(){
         Scanner sc = null;
         try {
-            sc = new Scanner( new File(System.getProperty("user.dir") + "/src/IMDB/actors_mini.list"));
+            sc = new Scanner( new File(System.getProperty("user.dir") + "/src/IMDB/actors.list"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        int count = 0;
+        int lineNumber = 0;
         while (sc.hasNext()) {
-            String word = sc.next();
-            System.out.println(word);
-            count++;
-            if(count > 100){
-                break;
+            String word = sc.nextLine();
+
+            if(lineNumber >= 239) {
+                System.out.println(word);
             }
+
+            lineNumber++;
         }
     }
 }
