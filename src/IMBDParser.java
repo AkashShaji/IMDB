@@ -42,7 +42,7 @@ public class IMBDParser {
             String line = sc.nextLine();
             if (line.length() < 1) {
                 continue;
-            }else if(line.equals("-----------------------------------------------------------------------------")){
+            }else if(line.equals("-----------------------------------------------------------------------------") || line.equals("Name\t\t\tTitles ") || line.equals("----\t\t\t------")){
                 break;
             }
 
@@ -86,7 +86,7 @@ public class IMBDParser {
         if(closePar < tabIndex){
             closePar = line.indexOf(')', line.indexOf(')') + 1);
         }
-        movie = line.substring(tabIndex , closePar + 1);
+        movie = line.substring(tabIndex, closePar + 1);
         if(movie.contains("\"") || movie.contains("(TV)")){
             return "";
         }
