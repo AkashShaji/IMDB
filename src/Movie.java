@@ -12,6 +12,10 @@ public class Movie implements Node {
         return this.actors;
     }
 
+    public void addActor(Actor actor){
+        actors.add(actor);
+    }
+
     public Movie(String name, ArrayList<Actor> actors){
         this.name = name;
         this.actors = actors;

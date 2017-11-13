@@ -11,7 +11,7 @@ public class ParserTest {
         System.out.println(System.getProperty("user.dir"));
 
 
-        IMBDParser i = new IMBDParser();
+        IMBDParser i = new IMBDParser("actors.list", "actresses.list");
         i.parse();
         assertTrue(true);
     }

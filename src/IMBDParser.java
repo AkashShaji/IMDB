@@ -1,11 +1,15 @@
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class IMBDParser {
 
-    private HashMap<String, Movie> movieMap = new HashMap<String, Movie>();
+    private HashMap<String, Movie> _movieMap = new HashMap<String, Movie>();
+    private HashMap<String, Actor> _ActoreMap = new HashMap<String, Actor>();
 
     private String _fileActorName;
     private String _fileActressName;
@@ -17,6 +21,8 @@ public class IMBDParser {
 
     public void parse(){
         Scanner sc = null;
+        String currentActor;
+
         try {
             sc = new Scanner( new File(System.getProperty("user.dir") + "/src/IMDB/" + _fileActorName));
         } catch (FileNotFoundException e) {
@@ -24,15 +30,49 @@ public class IMBDParser {
         }
         int lineNumber = 0;
 
-
         while (sc.hasNext()) {
-            String word = sc.nextLine();
+            if (lineNumber < 238) {
+                sc.nextLine();
+                lineNumber++;
+                continue;
+            }
+            String line = sc.nextLine();
 
-            if(lineNumber >= 239) {
-                System.out.println(word);
+            if (line.length() < 1) {
+                continue;
             }
 
-            lineNumber++;
+            char beginningOfLine = line.charAt(0);
+            String actorName = "";
+
+            if (beginningOfLine != '\t' || actorName == "") {
+                actorName = line.substring(0, line.indexOf('\t'));
+            }
+
+            final String movieName = getMovieName(line);
+            final List<Movie> tempMovieList = new ArrayList<Movie>();
+
+            if (movieName != "") {
+                Movie tempMovie;
+                if (_movieMap.containsKey(movieName)) {
+                    tempMovie = _movieMap.get(movieName);
+                } else {
+                    tempMovie = new Movie(movieName, new ArrayList<Actor>());
+                }
+                tempMovieList.add(tempMovie);
+            }
+
+            Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
+            _ActoreMap.put(actorName, tempActor);
+            _movieMap.get(movieName).addActor(tempActor);
         }
+    }
+
+    private String getMovieName (String line){
+        if(line.contains("\"") || line.contains("(TV)")){
+            return "";
+        }
+        System.out.println(line);
+        return line.substring(line.lastIndexOf('\t'), line.indexOf(')'));
     }
 }
