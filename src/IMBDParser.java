@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class IMBDParser {
 
     private HashMap<String, Movie> _movieMap = new HashMap<String, Movie>();
-    private HashMap<String, Actor> _actoreMap = new HashMap<String, Actor>();
+    private HashMap<String, Actor> _actorMap = new HashMap<String, Actor>();
 
     private String _fileActorName;
     private String _fileActressName;
@@ -17,9 +17,11 @@ public class IMBDParser {
     public IMBDParser(String fileActorName, String fileActressName){
         _fileActorName = fileActorName;
         _fileActressName = fileActressName;
+        parse(fileActorName);
+        parse(fileActressName);
     }
 
-    public void parse(){
+    private void parse(String fileName){
         Scanner sc = null;
         String currentActor;
 
@@ -36,14 +38,11 @@ public class IMBDParser {
                 lineNumber++;
                 continue;
             }
-            lineNumber++;
-            if(lineNumber%1000000 == 0){
-                System.out.println(lineNumber/1000000);
-            }
+
             String line = sc.nextLine();
             if (line.length() < 1) {
                 continue;
-            }else if(line == "-----------------------------------------------------------------------------\n"){
+            }else if(line.equals("-----------------------------------------------------------------------------")){
                 break;
             }
 
@@ -71,12 +70,12 @@ public class IMBDParser {
                     _movieMap.put(movieName, tempMovie);
                 }
 
-                if(!_actoreMap.containsKey(actorName)){
+                if(!_actorMap.containsKey(actorName)){
                     Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
-                    _actoreMap.put(actorName, tempActor);
+                    _actorMap.put(actorName, tempActor);
                 }
 
-                Actor a = _actoreMap.get(actorName);
+                Actor a = _actorMap.get(actorName);
                 a.addMovie(tempMovie);
                 _movieMap.get(movieName).addActor(a);
             }
@@ -95,5 +94,13 @@ public class IMBDParser {
             return "";
         }
         return movie;
+    }
+
+    public HashMap<String, Movie> getMovies(){
+        return _movieMap;
+    }
+
+    public HashMap<String, Actor> getActors() {
+        return _actorMap;
     }
 }
