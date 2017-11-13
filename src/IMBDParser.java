@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class IMBDParser {
 
     private HashMap<String, Movie> _movieMap = new HashMap<String, Movie>();
-    private HashMap<String, Actor> _ActoreMap = new HashMap<String, Actor>();
+    private HashMap<String, Actor> _actoreMap = new HashMap<String, Actor>();
 
     private String _fileActorName;
     private String _fileActressName;
@@ -60,12 +60,15 @@ public class IMBDParser {
                     tempMovie = new Movie(movieName, new ArrayList<Actor>());
                     _movieMap.put(movieName, tempMovie);
                 }
-                tempMovieList.add(tempMovie);
 
-                Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
-                _ActoreMap.put(actorName, tempActor);
+                if(!_actoreMap.containsKey(actorName)){
+                    Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
+                    _actoreMap.put(actorName, tempActor);
+                }
 
-                _movieMap.get(movieName).addActor(tempActor);
+                Actor a = _actoreMap.get(actorName);
+                a.addMovie(tempMovie);
+                _movieMap.get(movieName).addActor(a);
             }
         }
     }
