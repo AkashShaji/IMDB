@@ -13,6 +13,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
             Node nodeToSearch = queue.pop();
             ArrayList<Node> subNodes = convertCollectionToArrayList(nodeToSearch.getNeighbors());
             for(Node n: subNodes){
+                // TODO : Akash, change this to .equals()
                 if(n.getName() == t.getName()) {
                     return reconstructPath(s,t,queue,searchedNodes);
                 }
