@@ -17,7 +17,4 @@ public class Actor implements Node{
         this.movies = movies;
     }
 
-    public void addMovie(Movie movie){
-        movies.add(movie);
-    }
 }
