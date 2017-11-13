@@ -23,14 +23,14 @@ public class IMBDParser {
 
     private void parse(String fileName){
         Scanner sc = null;
-        String currentActor;
 
         try {
-            sc = new Scanner( new File(System.getProperty("user.dir") + "/src/IMDB/" + _fileActorName), "ISO-8859-1");
+            sc = new Scanner( new File(System.getProperty("user.dir") + "/src/IMDB/" + fileName), "ISO-8859-1");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         int lineNumber = 0;
+        String actorName = "";
 
         while (sc.hasNext()) {
             if (lineNumber < 239) {
@@ -47,14 +47,11 @@ public class IMBDParser {
             }
 
             char beginningOfLine = line.charAt(0);
-            String actorName = "";
 
             if (beginningOfLine != '\t' || actorName == "") {
-                try {
-                    actorName = line.substring(0, line.indexOf('\t'));
-                }catch(StringIndexOutOfBoundsException e){
-                    System.out.println(line);
-                }
+                actorName = line.substring(0, line.indexOf('\t'));
+
+                //System.out.println(actorName);
             }
 
             final String movieName = getMovieName(line);
