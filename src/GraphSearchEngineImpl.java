@@ -15,7 +15,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
             ArrayList<Node> subNodes = convertCollectionToArrayList(nodeToSearch.getNeighbors());
             for(Node n: subNodes){
                 if(n.getName().equals(t.getName())) {
-                    return reconstructPath(s,t,queue,searchedNodes);
+                    return reconstructPath(s,t,searchedNodes);
                 }
                 if(!(searchedNodes.contains(n))) {
                     queue.add(n);
@@ -27,7 +27,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         return null;
     }
 
-    private List<Node> reconstructPath(Node s, Node t, LinkedList<Node> queue, ArrayList<Node> searchedNodes)
+    private List<Node> reconstructPath(Node s, Node t, ArrayList<Node> searchedNodes)
     {
         ArrayList<Node> path = new ArrayList<Node>();
         path.add(t);
