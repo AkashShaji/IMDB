@@ -14,7 +14,7 @@ public class IMDBActorsGraph implements Graph {
 
     @Override
     public Collection<? extends Node> getNodes() {
-        final Collection<Node> actorsList = new LinkedList<>();
+        final Collection<Actor> actorsList = new LinkedList<>();
 
         actorsList.addAll(_actors.values());
 

@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class IMDBMoviesGraph implements  Graph {
 
@@ -13,10 +14,13 @@ public class IMDBMoviesGraph implements  Graph {
 
     @Override
     public Collection<? extends Node> getNodes() {
-        return null;
+        final Collection<Movie> moviesList = new LinkedList<>();
+
+        moviesList.addAll(_movies.values());
+
+        return moviesList
     }
 
-    // TODO : THIS one
     @Override
     public Node getNodeByName(String name) {
         return null;
