@@ -1,13 +1,16 @@
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
 
 public class IMDBMoviesGraph implements  Graph {
 
+    private HashMap<String, Movie> _movies;
+
     public IMDBMoviesGraph (String actorsFilename, String actressesFilename) throws IOException {
-        // Load data from the specified actorsFilename and actressesFilename ...
+        final IMBDParser _parser = new IMBDParser(actorsFilename, actressesFilename);
+        _movies = _parser.getMovies();
     }
 
-    // TODO : This one
     @Override
     public Collection<? extends Node> getNodes() {
         return null;
