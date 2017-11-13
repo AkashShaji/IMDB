@@ -18,11 +18,11 @@ public class IMDBMoviesGraph implements  Graph {
 
         moviesList.addAll(_movies.values());
 
-        return moviesList
+        return moviesList;
     }
 
     @Override
     public Node getNodeByName(String name) {
-        return null;
+        return _movies.get(name);
     }
 }
