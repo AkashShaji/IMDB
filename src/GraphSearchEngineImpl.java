@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class GraphSearchEngineImpl implements GraphSearchEngine{
     public List<Node> findShortestPath (Node s, Node t){
@@ -10,7 +9,6 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         ArrayList<Node> searchedNodes = new ArrayList<Node>();
         searchedNodes.add(s);
 
-        printNodeList(queue);
 
         while(queue.size() != 0)
         {
@@ -33,28 +31,18 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         return null;
     }
 
-    private List<Node> reconstructPath(Node s, Node t, ArrayList<Node> searchedNodes)
-    {
-
-        System.out.println(s.getName());
-        printNodeList(convertCollectionToArrayList(s.getNeighbors()));
-        System.out.println();
-        System.out.println(t.getName());
-        printNodeList(convertCollectionToArrayList(t.getNeighbors()));
-        System.out.println();
-        printNodeList(searchedNodes);
-
+    private List<Node> reconstructPath(Node s, Node t, ArrayList<Node> searchedNodes) {
         ArrayList<Node> path = new ArrayList<Node>();
         path.add(t);
-        while(path.get(path.size() - 1) != s)
-        {
+
+        while(path.get(path.size() - 1) != s) {
            Node last = path.get(path.size() - 1);
            //System.out.println(last.getName());
            ArrayList<Node> subNodes = convertCollectionToArrayList(last.getNeighbors());
-
-           for(Node n: subNodes)
-           {
-              int index = searchedNodes.indexOf(n);
+           printNodeList(subNodes);
+           printNodeList(path);
+           for(Node n: searchedNodes) {
+              int index = subNodes.indexOf(n);
               if(index != -1) {
                   path.add(n);
                   break;
@@ -67,8 +55,10 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 
     private void printNodeList(List<Node> list){
         for(Node n: list){
-            System.out.println(n.getName());
+            System.out.print(n.getName());
+            System.out.print(" ");
         }
+        System.out.println();
 
     }
 
