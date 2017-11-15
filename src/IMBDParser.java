@@ -21,6 +21,10 @@ public class IMBDParser {
         parse(fileActressName);
     }
 
+    /**
+     * Takes a file and adds actors and movies to the hash map.
+     * @param fileName The name of file to be parsed
+     */
     private void parse(String fileName){
         Scanner sc = null;
         try {
@@ -30,16 +34,20 @@ public class IMBDParser {
         }
         int lineNumber = 0;
         String actorName = "";
+        Boolean prelude = true;
         while (sc.hasNext()) {
-            //Skip the intro (first 239 lines)
-            if (lineNumber < 239) {
-                sc.nextLine();
-                lineNumber++;
+            //Checks to see if scanner is still in prelude
+            if (prelude) {
+                String preludeLine = sc.nextLine();
+                //Line that states that the prelude has ended so set prelude to false.
+                if(preludeLine.equals("----\t\t\t------")){
+                    prelude = false;
+                }
                 continue;
             }
             String line = sc.nextLine();
             //Check to see if line is blank or still part of intro, if it is skip checking it
-            if (line.length() < 1  || line.equals("Name\t\t\tTitles ") || line.equals("----\t\t\t------")) {
+            if (line.length() < 1) {
                 continue;
             //Checks for end of actor list
             }else if(line.equals("-----------------------------------------------------------------------------")){
@@ -69,6 +77,11 @@ public class IMBDParser {
         }
     }
 
+    /**
+     * Returns a movie object to be added to the hash map.
+     * @param movieName The name of the movie
+     * @return a new movie object or an existing one the represent the given movie name
+     */
     private Movie checkIfMovieExists(String movieName){
         Movie tempMovie;
         //Checks to see if movie exists within the hash map, if it does return the movie, if not create a new movie and return that
@@ -81,6 +94,11 @@ public class IMBDParser {
         return tempMovie;
     }
 
+    /**
+     *  Returns the name of the movie in the given line
+     * @param line Line to get the name out ot
+     * @return the name of the movie from the line
+     */
     private String getMovieName (String line){
         String movie = "";
         //Collects index's

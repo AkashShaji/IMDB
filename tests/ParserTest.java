@@ -12,7 +12,7 @@ public class ParserTest {
         System.out.println(System.getProperty("user.dir"));
 
 
-        IMBDParser i = new IMBDParser("actors_test.list", "actresses_test.list");
+        IMBDParser i = new IMBDParser("actors_mini.list", "actresses_mini.list");
         HashMap<String, Actor> actors = i.getActors();
         for(String k : actors.keySet()){
             //System.out.println(k + ": " + actors.get(k).movies);
