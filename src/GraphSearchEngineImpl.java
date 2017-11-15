@@ -3,51 +3,65 @@ import java.util.*;
 public class GraphSearchEngineImpl implements GraphSearchEngine{
     public List<Node> findShortestPath (Node s, Node t){
 
-        ArrayList<Node> sp = new ArrayList<Node>();
         LinkedList<Node> queue = convertCollectionToLinkedList(s.getNeighbors());
 
-        ArrayList<Node> searchedNodes = new ArrayList<Node>();
-        searchedNodes.add(s);
+        LinkedList<Integer> distances = new LinkedList<>();
+        for (int x = 0; x < queue.size(); x ++)
+            distances.add(1);
+
+        HashMap<Node,Integer> searchedNodes = new HashMap<Node,Integer>();
+        searchedNodes.put(s,0);
 
 
         while(queue.size() != 0)
         {
             Node nodeToSearch = queue.pop();
+            Integer distance = distances.pop();
             ArrayList<Node> subNodes = convertCollectionToArrayList(nodeToSearch.getNeighbors());
-
-            for(Node n: subNodes){
-                if(n.getName().equals(t.getName())) {
-                    searchedNodes.add(nodeToSearch);
-                    searchedNodes.add(n);
-                    return reconstructPath(s,t,searchedNodes);
+            if(!searchedNodes.containsValue(nodeToSearch)){
+                 for(Node n: subNodes){
+                     if(n.getName().equals(t.getName())) {
+                        searchedNodes.put(nodeToSearch,distance);
+                        searchedNodes.put(n,distance++);
+                        return reconstructPath(s,t,searchedNodes,distance);
+                    }
+                    if(!(searchedNodes.containsKey(n)) /*&& !queue.contains(n)*/) {
+                         queue.add(n);
+                        distances.add(distance++);
+                    }
                 }
-                if(!(searchedNodes.contains(n))) {
-                    queue.add(n);
-                }
+                searchedNodes.put(nodeToSearch,distance);
             }
-            searchedNodes.add(nodeToSearch);
         }
 
         return null;
     }
 
-    private List<Node> reconstructPath(Node s, Node t, ArrayList<Node> searchedNodes) {
+    private List<Node> reconstructPath(Node s, Node t, HashMap<Node,Integer> searchedNodes,Integer distance) {
         ArrayList<Node> path = new ArrayList<Node>();
         path.add(t);
-
-        while(path.get(path.size() - 1) != s) {
+        System.out.println(searchedNodes);
+        while(distance >= 0) {
            Node last = path.get(path.size() - 1);
            //System.out.println(last.getName());
            ArrayList<Node> subNodes = convertCollectionToArrayList(last.getNeighbors());
            printNodeList(subNodes);
            printNodeList(path);
-           for(Node n: searchedNodes) {
-              int index = subNodes.indexOf(n);
-              if(index != -1) {
-                  path.add(n);
-                  break;
-              }
+           for(Node n: subNodes) {
+                if(searchedNodes.get(n) == distance)
+                {
+                    path.add(n);
+                    break;
+                }
            }
+           distance--;
+//           for(Node n: searchedNodes) {
+//              int index = subNodes.indexOf(n);
+//              if(index != -1) {
+//                  path.add(n);
+//                  break;
+//              }
+//           }
         }
         Collections.reverse(path);
         return (List) path;
@@ -69,12 +83,26 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         }
         return convertedCollection;
     }
-
-    private LinkedList<Node>  convertCollectionToLinkedList(Collection<?extends Node> c) {
+    private LinkedList<Node> convertCollectionToLinkedList(Collection<?extends Node> c){
         LinkedList<Node> convertedCollection = new LinkedList<>();
-        for (Node n : c) {
+        for(Node n : c){
             convertedCollection.add(n);
         }
         return convertedCollection;
     }
+
+//    private HashMap<Node,Integer>  convertCollectionToHashMap(Collection<?extends Node> c, int distance) {
+//        HashMap<Node,Integer> convertedCollection = new HashMap<Node,Integer>();
+//        for (Node n : c) {
+//            convertedCollection.put(n,distance);
+//        }
+//        return convertedCollection;
+//    }
+//    private LinkedHashMap<Node,Integer>  convertCollectionToLinkedHashMap(Collection<?extends Node> c, int distance) {
+//        LinkedHashMap<Node,Integer> convertedCollection = new HashMap<Node,Integer>;
+//        for (Node n : c) {
+//            convertedCollection.put(n,distance);
+//        }
+//        return convertedCollection;
+//    }
 }
