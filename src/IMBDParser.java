@@ -6,17 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A class that takes in two file names and builds
+ * a hash map of the actor nodes and movie nodes
+ */
+
 public class IMBDParser {
 
     private HashMap<String, Movie> _movieMap = new HashMap<String, Movie>();
     private HashMap<String, Actor> _actorMap = new HashMap<String, Actor>();
 
-    private String _fileActorName;
-    private String _fileActressName;
-
     public IMBDParser(String fileActorName, String fileActressName){
-        _fileActorName = fileActorName;
-        _fileActressName = fileActressName;
         parse(fileActorName);
         parse(fileActressName);
     }
@@ -116,10 +116,18 @@ public class IMBDParser {
         return movie;
     }
 
+    /**
+     *  Returns hash map
+     * @return the hash map of movies
+     */
     public HashMap<String, Movie> getMovies(){
         return _movieMap;
     }
 
+    /**
+     *  Returns hash map
+     * @return the hash map of actors
+     */
     public HashMap<String, Actor> getActors() {
         return _actorMap;
     }
