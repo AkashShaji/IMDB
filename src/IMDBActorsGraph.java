@@ -17,7 +17,6 @@ public class IMDBActorsGraph implements Graph {
         final Collection<Actor> actorsList = new LinkedList<>();
 
         actorsList.addAll(_actors.values());
-
         return actorsList;
     }
 

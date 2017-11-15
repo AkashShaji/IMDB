@@ -23,7 +23,6 @@ public class IMBDParser {
 
     private void parse(String fileName){
         Scanner sc = null;
-
         try {
             sc = new Scanner( new File(System.getProperty("user.dir") + "/src/IMDB/" + fileName), "ISO-8859-1");
         } catch (FileNotFoundException e) {
@@ -31,61 +30,67 @@ public class IMBDParser {
         }
         int lineNumber = 0;
         String actorName = "";
-
         while (sc.hasNext()) {
+            //Skip the intro (first 239 lines)
             if (lineNumber < 239) {
                 sc.nextLine();
                 lineNumber++;
                 continue;
             }
-
             String line = sc.nextLine();
+            //Check to see if line is blank or still part of intro, if it is skip checking it
             if (line.length() < 1  || line.equals("Name\t\t\tTitles ") || line.equals("----\t\t\t------")) {
                 continue;
+            //Checks for end of actor list
             }else if(line.equals("-----------------------------------------------------------------------------")){
                 break;
             }
-
-            char beginningOfLine = line.charAt(0);
-
+            //Gets the first character in line; if it is not a tab or no actor is selected yet, update current actor name
+            final char beginningOfLine = line.charAt(0);
             if (beginningOfLine != '\t' || actorName == "") {
                 actorName = line.substring(0, line.indexOf('\t'));
-
-                //System.out.println(actorName);
             }
-
+            //Get the name of the movie on the line
             final String movieName = getMovieName(line);
-            final List<Movie> tempMovieList = new ArrayList<Movie>();
-
+            //If line contains movie
             if (movieName != "") {
-                Movie tempMovie;
-
-                if (_movieMap.containsKey(movieName)) {
-                    tempMovie = _movieMap.get(movieName);
-                } else {
-                    tempMovie = new Movie(movieName, new ArrayList<Actor>());
-                    _movieMap.put(movieName, tempMovie);
-                }
-
+                //Will either return a new movie object or if movie has already been added to hash map that object
+                final Movie tempMovie = checkIfMovieExists(movieName);
+                //Checks to see if actor is already in hash map, if not add it.
                 if(!_actorMap.containsKey(actorName)){
-                    Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
+                    final Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
                     _actorMap.put(actorName, tempActor);
                 }
-
-                Actor a = _actorMap.get(actorName);
+                //Gets the actor and adds the movie and adds the actor to movie.
+                final Actor a = _actorMap.get(actorName);
                 a.addMovie(tempMovie);
                 _movieMap.get(movieName).addActor(a);
             }
         }
     }
 
+    private Movie checkIfMovieExists(String movieName){
+        Movie tempMovie;
+        //Checks to see if movie exists within the hash map, if it does return the movie, if not create a new movie and return that
+        if (_movieMap.containsKey(movieName)) {
+            tempMovie = _movieMap.get(movieName);
+        } else {
+            tempMovie = new Movie(movieName, new ArrayList<Actor>());
+            _movieMap.put(movieName, tempMovie);
+        }
+        return tempMovie;
+    }
+
     private String getMovieName (String line){
         String movie = "";
+        //Collects index's
         int tabIndex = line.lastIndexOf('\t');
         int closePar = line.indexOf(')');
+        //If the close parentheses comes before tab (there is a parentheses in the actor name) get the second occurrence of parentheses.
         if(closePar < tabIndex){
             closePar = line.indexOf(')', line.indexOf(')') + 1);
         }
+        //Get movie name and throw out if is TV or TV movie
         movie = line.substring(tabIndex, closePar + 1);
         if(movie.contains("\"") || movie.contains("(TV)")){
             return "";
