@@ -1,6 +1,4 @@
 import java.util.stream.*;
-import java.util.function.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -94,7 +92,7 @@ public class GraphSearchGUI extends Application {
 		// Load graph data and initialize the ListViews
 		final Graph graph;
 		try {
-			graph = new IMDBActorsGraph("actors_test.list", "actresses_test.list");
+			graph = new IMDBActorsGraph("IMDB/actors_test.list", "IMDB/actresses_test.list");
 		} catch (IOException ioe) {
 			System.out.println("Couldn't load data");
 			return;

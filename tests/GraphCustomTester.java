@@ -2,7 +2,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,7 +16,7 @@ public class GraphCustomTester {
 //        _actorsGraph = new IMDBActorsGraph("actors.list", "actresses.list");
 //        _moviesGraph = new IMDBMoviesGraph("actors.list", "actresses.list");
 
-        _agMini = new IMDBActorsGraph("actors_test_ours.list", "actresses_test.list");
+        _agMini = new IMDBActorsGraph("IMDB/actors_test_ours.list", "IMDB/actresses_test.list");
 
         _se = new GraphSearchEngineImpl();
     }

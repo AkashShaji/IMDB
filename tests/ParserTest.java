@@ -1,6 +1,5 @@
 import org.junit.Test;
 
-import java.nio.file.FileSystems;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
