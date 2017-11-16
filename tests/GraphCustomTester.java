@@ -32,7 +32,7 @@ public class GraphCustomTester {
     @Test
     public void famousPeople() {
         final Node carrey = _actorsGraph.getNodeByName("Carrey, Jim");
-        final Node cruz = _actorsGraph.getNodeByName("Cruz, Ted (II)")
+        final Node cruz = _actorsGraph.getNodeByName("Cruz, Ted (II)");
         final Node jeremy = _actorsGraph.getNodeByName("Jeremy, Ron");
         final Node malkova = _actorsGraph.getNodeByName("Malkova, Mia");
         final Node riley = _actorsGraph.getNodeByName("Reid, Riley (III)");
