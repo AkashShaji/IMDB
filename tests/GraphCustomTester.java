@@ -31,13 +31,30 @@ public class GraphCustomTester {
 
     @Test
     public void famousPeople() {
-        final Node actor1 = _actorsGraph.getNodeByName("Jeremy, Ron");
-        final Node actor2 = _actorsGraph.getNodeByName("Carrey, Jim");
+        final Node carrey = _actorsGraph.getNodeByName("Carrey, Jim");
+        final Node cruz = _actorsGraph.getNodeByName("Cruz, Ted (II)")
+        final Node jeremy = _actorsGraph.getNodeByName("Jeremy, Ron");
+        final Node malkova = _actorsGraph.getNodeByName("Malkova, Mia");
+        final Node riley = _actorsGraph.getNodeByName("Reid, Riley (III)");
+        final Node texas = _actorsGraph.getNodeByName("Texas, Alexis");
+        final Node love = _actorsGraph.getNodeByName("Love, Brandi (I)");
+        final Node ann = _actorsGraph.getNodeByName("Ann, Lisa");
+        final Node jordan = _actorsGraph.getNodeByName("Jordan, Kacey");
 
-        final List<Node> shortestPath = _se.findShortestPath(actor1, actor2);
+        printPath(cruz, jordan);
+        printPath(jeremy, cruz);
+        printPath(carrey, malkova);
+    }
 
-        for(Node n: shortestPath) {
+    private void printPath(Node a1, Node a2) {
+        List<Node> path = _se.findShortestPath(a1, a2);
+
+        System.out.println();
+
+        for(Node n: path) {
             System.out.println(n.getName());
         }
+
+        System.out.println();
     }
 }

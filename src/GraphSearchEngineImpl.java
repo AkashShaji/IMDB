@@ -9,7 +9,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         for (int x = 0; x < queue.size(); x ++)
             distances.add(1);
 
-        HashMap<Node,Integer> searchedNodes = new HashMap<Node,Integer>();
+        HashMap<Node, Integer> searchedNodes = new HashMap<Node, Integer>();
         searchedNodes.put(s,0);
 
 
@@ -18,16 +18,21 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
             Node nodeToSearch = queue.pop();
             Integer distance = distances.pop();
             ArrayList<Node> subNodes = convertCollectionToArrayList(nodeToSearch.getNeighbors());
+
             if(!searchedNodes.containsValue(nodeToSearch)){
                  for(Node n: subNodes){
                      if(n.getName().equals(t.getName())) {
-                        searchedNodes.put(nodeToSearch,distance);
-                        searchedNodes.put(n,distance++);
-                        return reconstructPath(s,t,searchedNodes,distance);
+                        searchedNodes.put(nodeToSearch, distance);
+//                        searchedNodes.put(n,distance++);
+
+                        System.out.print("Distance: ");
+                        System.out.println(distance);
+
+                        return reconstructPath(s, t, searchedNodes, distance);
                     }
                     if(!(searchedNodes.containsKey(n)) /*&& !queue.contains(n)*/) {
                          queue.add(n);
-                        distances.add(distance++);
+                        distances.add(distance + 1);
                     }
                 }
                 searchedNodes.put(nodeToSearch,distance);
