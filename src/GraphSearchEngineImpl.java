@@ -41,9 +41,8 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         ArrayList<Node> path = new ArrayList<Node>();
         path.add(t);
         System.out.println(searchedNodes);
-        while(distance >= 0) {
+        while(distance > 0) {
            Node last = path.get(path.size() - 1);
-           //System.out.println(last.getName());
            ArrayList<Node> subNodes = convertCollectionToArrayList(last.getNeighbors());
            printNodeList(subNodes);
            printNodeList(path);
@@ -63,6 +62,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 //              }
 //           }
         }
+        path.add(s);
         Collections.reverse(path);
         return (List) path;
     }
