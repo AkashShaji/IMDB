@@ -25,8 +25,8 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
                         searchedNodes.put(nodeToSearch, distance);
 //                        searchedNodes.put(n,distance++);
 
-                        System.out.print("Distance: ");
-                        System.out.println(distance);
+//                        System.out.print("Distance: ");
+//                        System.out.println(distance);
 
                         return reconstructPath(s, t, searchedNodes, distance);
                     }
@@ -45,7 +45,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
     private List<Node> reconstructPath(Node s, Node t, HashMap<Node,Integer> searchedNodes,Integer distance) {
         ArrayList<Node> path = new ArrayList<Node>();
         path.add(t);
-        System.out.println(searchedNodes);
+//        System.out.println(searchedNodes);
         while(distance > 0) {
            Node last = path.get(path.size() - 1);
            ArrayList<Node> subNodes = convertCollectionToArrayList(last.getNeighbors());
@@ -74,10 +74,10 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 
     private void printNodeList(List<Node> list){
         for(Node n: list){
-            System.out.print(n.getName());
-            System.out.print(" ");
+//            System.out.print(n.getName());
+//            System.out.print(" ");
         }
-        System.out.println();
+//        System.out.println();
 
     }
 

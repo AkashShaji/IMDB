@@ -9,13 +9,16 @@ import static org.junit.Assert.*;
 
 public class GraphCustomTester {
 
-    Graph _actorsGraph, _moviesGraph;
+    Graph _actorsGraph, _moviesGraph, _agMini;
     GraphSearchEngine _se;
 
     @Before
     public void init() throws IOException {
-        _actorsGraph = new IMDBActorsGraph("actors.list", "actresses.list");
-        _moviesGraph = new IMDBMoviesGraph("actors.list", "actresses.list");
+//        _actorsGraph = new IMDBActorsGraph("actors.list", "actresses.list");
+//        _moviesGraph = new IMDBMoviesGraph("actors.list", "actresses.list");
+
+        _agMini = new IMDBActorsGraph("actors_test_ours.list", "actresses_test.list");
+
         _se = new GraphSearchEngineImpl();
     }
 
@@ -32,6 +35,8 @@ public class GraphCustomTester {
     @Test
     public void famousPeople() {
         final Node carrey = _actorsGraph.getNodeByName("Carrey, Jim");
+        final Node obaama = _actorsGraph.getNodeByName("Obama, Barack");
+
         final Node cruz = _actorsGraph.getNodeByName("Cruz, Ted (II)");
         final Node jeremy = _actorsGraph.getNodeByName("Jeremy, Ron");
         final Node malkova = _actorsGraph.getNodeByName("Malkova, Mia");
@@ -41,9 +46,23 @@ public class GraphCustomTester {
         final Node ann = _actorsGraph.getNodeByName("Ann, Lisa");
         final Node jordan = _actorsGraph.getNodeByName("Jordan, Kacey");
 
-        printPath(cruz, jordan);
-        printPath(jeremy, cruz);
-        printPath(carrey, malkova);
+
+        printPath(obaama, cruz);
+        printPath(cruz, jeremy);
+        printPath(obaama, jordan);
+//        printPath(cruz, jordan);
+//        printPath(obaama, riley);
+//        printPath(jeremy, cruz);
+//        printPath(carrey, malkova);
+//        printPath(jeremy, jordan);
+    }
+
+    @Test
+    public void threeHops() {
+        final Node p1 = _agMini.getNodeByName("Actor1");
+        final Node p2 = _agMini.getNodeByName("Actor4");
+
+        printPath(p1, p2);
     }
 
     private void printPath(Node a1, Node a2) {

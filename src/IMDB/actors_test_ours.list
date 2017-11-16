@@ -238,13 +238,13 @@ THE ACTORS LIST
 Name			Titles 
 ----			------
 
-p1	Mov1 (2001)
+Actor1	Movie1 (2001)
+	Movie2 (2002)
 
-p2	Mov2 (2002)
-    Mov1 (2001)
+Actor2	Movie2 (2002)
+	Movie3 (2003)
 
-p3	Mov3 (2003)
-    Mov2 (2002)
+Actor3	Movie3 (2003)
+	Movie4 (2003)
 
-p4  Mov 4 (1969)
-    Mov3 (2003)
+Actor4	Movie4 (2003)
