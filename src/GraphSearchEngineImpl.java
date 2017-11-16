@@ -1,17 +1,28 @@
 import java.util.*;
-
+/**
+ *
+ */
 public class GraphSearchEngineImpl implements GraphSearchEngine{
+    /**
+     * uses breath first search in order to find the shortest path between two nodes.
+     * @param s the start node.
+     * @param t the target node.
+     * @return a list of nodes that forms a shortest path from the start node to the target node
+     * returns null if no such path exists.
+     */
+
     public List<Node> findShortestPath (Node s, Node t){
 
-        LinkedList<Node> queue = convertCollectionToLinkedList(s.getNeighbors());
 
+        //The queue consists of two parallel arraylists.
+        LinkedList<Node> queue = convertCollectionToLinkedList(s.getNeighbors());
         LinkedList<Integer> distances = new LinkedList<>();
         for (int x = 0; x < queue.size(); x ++)
             distances.add(1);
 
+        //The nodes that have been used are stored in a hashmap with their distance from the center.
         HashMap<Node, Integer> searchedNodes = new HashMap<Node, Integer>();
         searchedNodes.put(s,0);
-
 
         while(queue.size() != 0)
         {
@@ -21,36 +32,31 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 
             if(!searchedNodes.containsValue(nodeToSearch)){
                  for(Node n: subNodes){
+                     //Calls the reconstruction method if it finds the target node
                      if(n.getName().equals(t.getName())) {
                         searchedNodes.put(nodeToSearch, distance);
-//                        searchedNodes.put(n,distance++);
-
-//                        System.out.print("Distance: ");
-//                        System.out.println(distance);
-
                         return reconstructPath(s, t, searchedNodes, distance);
                     }
-                    if(!(searchedNodes.containsKey(n)) /*&& !queue.contains(n)*/) {
-                         queue.add(n);
+                    //If the node hasn't already been searched it adds it to the queue
+                    if(!(searchedNodes.containsKey(n))) {
+                        queue.add(n);
                         distances.add(distance + 1);
                     }
                 }
                 searchedNodes.put(nodeToSearch,distance);
             }
         }
-
+        //Only reaches this point of the queue is empty, which means the two nodes are isolated from eachother.
         return null;
     }
+    //rebuilds the path from node S to node T
 
     private List<Node> reconstructPath(Node s, Node t, HashMap<Node,Integer> searchedNodes,Integer distance) {
         ArrayList<Node> path = new ArrayList<Node>();
         path.add(t);
-//        System.out.println(searchedNodes);
         while(distance > 0) {
            Node last = path.get(path.size() - 1);
            ArrayList<Node> subNodes = convertCollectionToArrayList(last.getNeighbors());
-           printNodeList(subNodes);
-           printNodeList(path);
            for(Node n: subNodes) {
                 if(searchedNodes.get(n) == distance)
                 {
@@ -59,30 +65,17 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
                 }
            }
            distance--;
-//           for(Node n: searchedNodes) {
-//              int index = subNodes.indexOf(n);
-//              if(index != -1) {
-//                  path.add(n);
-//                  break;
-//              }
-//           }
         }
         path.add(s);
+        //Since this reconstructs it backwards the list is reversed.
         Collections.reverse(path);
         return (List) path;
     }
 
-    private void printNodeList(List<Node> list){
-        for(Node n: list){
-//            System.out.print(n.getName());
-//            System.out.print(" ");
-        }
-//        System.out.println();
 
-    }
-
+    //Helper methods.
     private ArrayList<Node> convertCollectionToArrayList(Collection<?extends Node> c){
-        ArrayList<Node> convertedCollection = new ArrayList<Node>();
+        ArrayList<Node> convertedCollection = new ArrayList<>();
         for(Node n : c){
             convertedCollection.add(n);
         }
@@ -95,19 +88,4 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         }
         return convertedCollection;
     }
-
-//    private HashMap<Node,Integer>  convertCollectionToHashMap(Collection<?extends Node> c, int distance) {
-//        HashMap<Node,Integer> convertedCollection = new HashMap<Node,Integer>();
-//        for (Node n : c) {
-//            convertedCollection.put(n,distance);
-//        }
-//        return convertedCollection;
-//    }
-//    private LinkedHashMap<Node,Integer>  convertCollectionToLinkedHashMap(Collection<?extends Node> c, int distance) {
-//        LinkedHashMap<Node,Integer> convertedCollection = new HashMap<Node,Integer>;
-//        for (Node n : c) {
-//            convertedCollection.put(n,distance);
-//        }
-//        return convertedCollection;
-//    }
 }
