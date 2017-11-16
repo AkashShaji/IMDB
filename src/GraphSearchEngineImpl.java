@@ -49,8 +49,12 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         //Only reaches this point of the queue is empty, which means the two nodes are isolated from eachother.
         return null;
     }
-    //rebuilds the path from node S to node T
 
+    /**
+     * rebuilds the path from node S to node T
+     * @param start node, target node, nodes searched and distance from start node
+     * @return the shortest list of nodes from S to T
+     */
     private List<Node> reconstructPath(Node s, Node t, HashMap<Node,Integer> searchedNodes,Integer distance) {
         ArrayList<Node> path = new ArrayList<Node>();
         path.add(t);
@@ -73,7 +77,11 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
     }
 
 
-    //Helper methods.
+    /**
+     * Transforms a collection into an ArrayList
+     * @param a Collection of objects that extend Node
+     * @return the collection converted to ArrayList
+     */
     private ArrayList<Node> convertCollectionToArrayList(Collection<?extends Node> c){
         ArrayList<Node> convertedCollection = new ArrayList<>();
         for(Node n : c){
@@ -81,6 +89,12 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         }
         return convertedCollection;
     }
+
+    /**
+     * Transforms a collection into an LinkedList
+     * @param a collection of nodes
+     * @return the collection converted to LinkedList
+     */
     private LinkedList<Node> convertCollectionToLinkedList(Collection<?extends Node> c){
         LinkedList<Node> convertedCollection = new LinkedList<>();
         for(Node n : c){
