@@ -33,7 +33,6 @@ public class IMDBMoviesGraph implements Graph {
         final Collection<Movie> moviesList = new LinkedList<>();
 
         moviesList.addAll(_movies.values());
-
         return moviesList;
     }
 

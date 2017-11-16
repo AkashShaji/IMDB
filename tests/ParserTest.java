@@ -15,8 +15,8 @@ public class ParserTest {
         HashMap<String, Actor> actors = i.getActors();
         for(String k : actors.keySet()){
             //System.out.println(k + ": " + actors.get(k).movies);
-            for(Movie m : actors.get(k).movies) {
-                System.out.println(actors.get(k).name + ": " + m.name);
+            for(Movie m : actors.get(k).getNeighbors()) {
+                System.out.println(actors.get(k).getName() + ": " + m.name);
             }
         }
         assertTrue(true);
