@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 
 public class Movie implements Node {
-    public String name;
-    public ArrayList<Actor> actors;
+
+    private String name;
+    private ArrayList<Actor> actors;
 
     public String getName(){
         return this.name;

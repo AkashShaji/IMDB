@@ -16,7 +16,7 @@ public class ParserTest {
         for(String k : actors.keySet()){
             //System.out.println(k + ": " + actors.get(k).movies);
             for(Movie m : actors.get(k).getNeighbors()) {
-                System.out.println(actors.get(k).getName() + ": " + m.name);
+                System.out.println(actors.get(k).getName() + ": " + m.getName());
             }
         }
         assertTrue(true);
