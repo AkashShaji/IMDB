@@ -28,7 +28,7 @@ public class IMBDParser {
     private void parse(String fileName){
         Scanner sc = null;
         try {
-            sc = new Scanner( new File(System.getProperty("user.dir") + "/src/IMDB/" + fileName), "ISO-8859-1");
+            sc = new Scanner( new File(fileName), "ISO-8859-1");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
