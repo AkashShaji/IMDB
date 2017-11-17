@@ -12,10 +12,10 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
      */
 
     public List<Node> findShortestPath (Node s, Node t){
-
-
         //The queue consists of two parallel arraylists.
-        LinkedList<Node> queue = convertCollectionToLinkedList(s.getNeighbors());
+        LinkedList<Node> queue = new LinkedList<>();
+        for (Node n: s.getNeighbors())
+            queue.add(n);
         LinkedList<Integer> distances = new LinkedList<>();
         for (int x = 0; x < queue.size(); x ++)
             distances.add(1);
@@ -28,10 +28,9 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         {
             Node nodeToSearch = queue.pop();
             Integer distance = distances.pop();
-            ArrayList<Node> subNodes = convertCollectionToArrayList(nodeToSearch.getNeighbors());
 
             if(!searchedNodes.containsValue(nodeToSearch)){
-                 for(Node n: subNodes){
+                 for(Node n: nodeToSearch.getNeighbors()){
                      //Calls the reconstruction method if it finds the target node
                      if(n.getName().equals(t.getName())) {
                         searchedNodes.put(nodeToSearch, distance);
@@ -60,8 +59,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         path.add(t);
         while(distance > 0) {
            Node last = path.get(path.size() - 1);
-           ArrayList<Node> subNodes = convertCollectionToArrayList(last.getNeighbors());
-           for(Node n: subNodes) {
+           for(Node n: last.getNeighbors()) {
                 if(searchedNodes.get(n) == distance)
                 {
                     path.add(n);
@@ -74,32 +72,5 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         //Since this reconstructs it backwards the list is reversed.
         Collections.reverse(path);
         return (List) path;
-    }
-
-
-    /**
-     * Transforms a collection into an ArrayList
-     * @param a Collection of objects that extend Node
-     * @return the collection converted to ArrayList
-     */
-    private ArrayList<Node> convertCollectionToArrayList(Collection<?extends Node> c){
-        ArrayList<Node> convertedCollection = new ArrayList<>();
-        for(Node n : c){
-            convertedCollection.add(n);
-        }
-        return convertedCollection;
-    }
-
-    /**
-     * Transforms a collection into an LinkedList
-     * @param a collection of nodes
-     * @return the collection converted to LinkedList
-     */
-    private LinkedList<Node> convertCollectionToLinkedList(Collection<?extends Node> c){
-        LinkedList<Node> convertedCollection = new LinkedList<>();
-        for(Node n : c){
-            convertedCollection.add(n);
-        }
-        return convertedCollection;
     }
 }
