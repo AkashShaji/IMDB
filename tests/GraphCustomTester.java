@@ -13,8 +13,8 @@ public class GraphCustomTester {
 
     @Before
     public void init() throws IOException {
-//        _actorsGraph = new IMDBActorsGraph("IMDB/actors.list", "IMDB/actresses.list");
-//        _moviesGraph = new IMDBMoviesGraph("IMDB/actors.list", "IMDB/actresses.list");
+        _actorsGraph = new IMDBActorsGraph("IMDB/actors.list", "IMDB/actresses.list");
+        _moviesGraph = new IMDBMoviesGraph("IMDB/actors.list", "IMDB/actresses.list");
 
         _agMini = new IMDBActorsGraph("IMDB/actors_test_ours.list", "IMDB/actresses_test.list");
 

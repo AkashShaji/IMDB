@@ -56,7 +56,8 @@ public class IMBDParser {
             //Gets the first character in line; if it is not a tab or no actor is selected yet, update current actor name
             final char beginningOfLine = line.charAt(0);
             if (beginningOfLine != '\t' || actorName == "") {
-                actorName = line.substring(0, line.indexOf('\t'));
+                int indexOfTab = line.indexOf('\t');
+                actorName = line.substring(0, indexOfTab);
             }
             //Get the name of the movie on the line
             final String movieName = getMovieName(line);
@@ -65,14 +66,16 @@ public class IMBDParser {
                 //Will either return a new movie object or if movie has already been added to hash map that object
                 final Movie tempMovie = checkIfMovieExists(movieName);
                 //Checks to see if actor is already in hash map, if not add it.
+                Actor tempActor;
                 if(!_actorMap.containsKey(actorName)){
-                    final Actor tempActor = new Actor(actorName, new ArrayList<Movie>());
+                    tempActor = new Actor(actorName, new ArrayList<Movie>());
                     _actorMap.put(actorName, tempActor);
+                }else{
+                    tempActor = _actorMap.get(actorName);
                 }
                 //Gets the actor and adds the movie and adds the actor to movie.
-                final Actor a = _actorMap.get(actorName);
-                a.addMovie(tempMovie);
-                _movieMap.get(movieName).addActor(a);
+                tempMovie.addActor(tempActor);
+                tempActor.addMovie(tempMovie);
             }
         }
     }
@@ -100,6 +103,10 @@ public class IMBDParser {
      * @return the name of the movie from the line
      */
     private String getMovieName (String line){
+        //Get movie name and throw out if is TV or TV movie
+        if(line.contains("\"") || line.contains("(TV)")){
+            return "";
+        }
         String movie = "";
         //Collects index's
         int tabIndex = line.lastIndexOf('\t');
@@ -108,11 +115,7 @@ public class IMBDParser {
         if(closePar < tabIndex){
             closePar = line.indexOf(')', line.indexOf(')') + 1);
         }
-        //Get movie name and throw out if is TV or TV movie
         movie = line.substring(tabIndex, closePar + 1);
-        if(movie.contains("\"") || movie.contains("(TV)")){
-            return "";
-        }
         return movie;
     }
 

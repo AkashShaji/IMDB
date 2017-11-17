@@ -10,7 +10,7 @@ public class Actor implements Node{
     private String name;
 
     /**
-     * Moves that the Actor has starred in
+     * Movies that the Actor has starred in
      */
     private ArrayList<Movie> movies;
 
