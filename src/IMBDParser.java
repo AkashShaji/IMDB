@@ -103,6 +103,7 @@ public class IMBDParser {
      * @return the name of the movie from the line
      */
     private String getMovieName (String line){
+        //Get movie name and throw out if is TV or TV movie
         if(line.contains("\"") || line.contains("(TV)")){
             return "";
         }
@@ -114,7 +115,6 @@ public class IMBDParser {
         if(closePar < tabIndex){
             closePar = line.indexOf(')', line.indexOf(')') + 1);
         }
-        //Get movie name and throw out if is TV or TV movie
         movie = line.substring(tabIndex, closePar + 1);
         return movie;
     }
