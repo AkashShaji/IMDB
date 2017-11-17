@@ -115,7 +115,7 @@ public class IMBDParser {
         if(closePar < tabIndex){
             closePar = line.indexOf(')', line.indexOf(')') + 1);
         }
-        movie = line.substring(tabIndex, closePar + 1);
+        movie = line.substring(tabIndex + 1, closePar + 1);
         return movie;
     }
 
