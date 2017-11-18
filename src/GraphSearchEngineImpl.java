@@ -55,7 +55,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
      * @return the shortest list of nodes from S to T
      */
     private List<Node> reconstructPath(Node s, Node t, HashMap<Node,Integer> searchedNodes,Integer distance) {
-        ArrayList<Node> path = new ArrayList<Node>();
+        List<Node> path = new ArrayList<Node>();
         path.add(t);
         while(distance > 0) {
            Node last = path.get(path.size() - 1);
@@ -71,6 +71,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
         path.add(s);
         //Since this reconstructs it backwards the list is reversed.
         Collections.reverse(path);
-        return (List) path;
+
+        return path;
     }
 }
